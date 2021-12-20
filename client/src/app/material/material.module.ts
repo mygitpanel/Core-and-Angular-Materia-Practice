@@ -4,6 +4,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 const MaterialComponents = [
@@ -11,7 +14,10 @@ const MaterialComponents = [
   MatTableModule,
   MatInputModule,
   MatGridListModule,
-  MatCardModule
+  MatCardModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatSidenavModule
 ];
 
 @NgModule({
