@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table'
 
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
+export class UsersComponent implements OnInit {
 
-
-
-export class AppComponent implements OnInit {
   title = 'Add New User';
   data:any;
   displayedColumns: string[];
@@ -22,7 +20,7 @@ export class AppComponent implements OnInit {
 
   constructor(private _httpclient:HttpClient){}
 
-  ngOnInit(){
+  ngOnInit(): void {
     this.getData();
   }
 
