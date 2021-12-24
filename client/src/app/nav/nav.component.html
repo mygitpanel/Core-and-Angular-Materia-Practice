@@ -6,9 +6,17 @@
 </a>
 <span class="example-spacer"></span>
 <div fxShow="true" fxHide.lt-md="true">
-  <a mat-button routerLink="/home" routerLinkActive='active'>Home</a>
+<ng-container *ngIf="(_userregisterservice.currentuser$ | async) as user">
+<a mat-button routerLink="/home" routerLinkActive='active'>Home</a>
 <a mat-button routerLink="/about" routerLinkActive='active'>About us</a>
 <a mat-button routerLink="/users" routerLinkActive='active'>Users List</a>
+<a mat-button routerLinkActive='active' (click)="logout()">Logout</a>
+<a mat-button style="color: aliceblue; font-size: large;float: right;">Welcome {{user.userName | titlecase}}</a>
+</ng-container>
+</div>
+
+<div fxShow="true" fxHide.lt-md="true" *ngIf='!(_userregisterservice.currentuser$ | async)'>
+<a mat-button routerLink="/home" routerLinkActive='active'>Home</a>
 <a mat-button routerLink="/register" routerLinkActive='active'>Register</a>
 <a mat-button routerLink="/login" routerLinkActive='active'>Login</a>
 </div>

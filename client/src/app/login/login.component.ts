@@ -3,6 +3,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Iuser } from '../_Interfaces/Iuser';
 import { UserregisterService } from '../_Services/userregister.service';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _service: UserregisterService,
-    private _router: Router
+    private _router: Router,
+    private _snackBar:MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -40,10 +42,13 @@ export class LoginComponent implements OnInit {
       this.userModel = Object.assign({}, this.loginForm.value);
       this._service.loginService(this.userModel).subscribe(
         () => {
-          alert('Login successfully');
+          this._snackBar.open('Login successfully','Dismiss');
         },
         (error) => {
-          alert(error.error);
+          this._snackBar.open(error.error,'Dismiss');
+        },
+        () => {
+          this._router.navigate(['home']);
         }
       );
     }

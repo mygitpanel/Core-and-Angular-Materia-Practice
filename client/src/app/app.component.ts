@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { userModel } from './_models/user';
+import { UserregisterService } from './_Services/userregister.service';
 
 
 @Component({
@@ -12,38 +12,16 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 
 
 export class AppComponent implements OnInit {
-  title = 'Add New User';
-  data:any;
-  displayedColumns: string[];
-  apiurl:string = 'http://localhost:5000/api/user/userlist';
-  userCount:Number;
 
-  public dataSource = new MatTableDataSource<any>();
-
-  constructor(private _httpclient:HttpClient){}
+  constructor(private _service:UserregisterService){}
 
   ngOnInit(){
-    this.getData();
+    this.setCurrentUser();
   }
 
-  getData(){
-    this._httpclient.get(this.apiurl).subscribe(response => {
-      this.displayedColumns = ['Id', 'User Name'];
-      this.dataSource.data = response as any[];
-      this.userCount = this.dataSource.data.length;
-      console.log(response);
-    }, error => {
-      console.log(error);
-    });
+  setCurrentUser()
+  {
+    const user:userModel = JSON.parse(localStorage.getItem('user'));
+    this._service.SetCurrentUser(user);
   }
-
-  rowdata(row){
-    console.log(row)
-    alert(row.userName + " has Id = " + row.id)
-  }
-
-  applyFilter(filterVal:string){
-    this.dataSource.filter = filterVal.trim().toLowerCase();
-  }
-
 }

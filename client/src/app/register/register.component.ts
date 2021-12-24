@@ -3,6 +3,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Iuser } from '../_Interfaces/Iuser';
 import { UserregisterService } from '../_Services/userregister.service';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _service: UserregisterService,
-    private _router: Router
+    private _router: Router,
+    private _snackBar:MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -39,15 +41,19 @@ export class RegisterComponent implements OnInit {
       this.userModel = Object.assign({}, this.registerForm.value);
       this._service.registerService(this.userModel).subscribe(
         () => {
-          alert('user registered successfully');
+          this.openSnackBar('user registered successfully','ok')
         },
         (error) => {
-          alert(error.error);
+          this.openSnackBar(error.error,'ok')
         },
         () => {
           this._router.navigate(['/login']);
         }
       );
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 }
